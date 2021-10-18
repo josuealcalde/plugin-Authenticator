@@ -25,9 +25,6 @@
 namespace SP\Modules\Web\Plugins\Authenticator\Services;
 
 use BaconQrCode\Renderer\Image\Png;
-use BaconQrCode\Renderer\Image\SvgImageBackEnd;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Base2n;
 use Defuse\Crypto\Exception\CryptoException;
@@ -179,10 +176,9 @@ final class AuthenticatorService extends Service
      */
     public function getQrCodeFromServer(string $login, string $iv): string
     {
-        $renderer = new ImageRenderer(
-            new RendererStyle(200),
-            new SvgImageBackEnd()
-        );
+        $renderer = new Png();
+        $renderer->setHeight(200);
+        $renderer->setWidth(200);
 
         $writer = new Writer($renderer);
 
